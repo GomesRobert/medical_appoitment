@@ -125,7 +125,7 @@
         "description": "Autenticação da API",
         "type": "http",
         "scheme": "bearer",
-        "bearerFormat":"JWT",
+        "bearerFormat":"JWT",  
         "tokenUrl": "http://localhost:3000/login"
         
       }
