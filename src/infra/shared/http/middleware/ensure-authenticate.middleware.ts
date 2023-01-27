@@ -5,7 +5,11 @@ import { JWTToken } from "../../token/jwt.token";
 
 
 
-export const ensureAuthenticate = (request: Request, response: Response, next: NextFunction) => {
+export const ensureAuthenticate = (
+  request: Request,
+  response: Response,
+  next: NextFunction
+) => {
 
 
   const headerAuth = request.headers.authorization
@@ -24,9 +28,10 @@ export const ensureAuthenticate = (request: Request, response: Response, next: N
     })
   }
 
-  const verifyToken = new JWTToken().valite(token);
+  const verifyToken = new JWTToken().validate(token);
 
   if (verifyToken) {
+    request.userId = verifyToken.sub;
     return next()
   }
   return response.status(401).json({

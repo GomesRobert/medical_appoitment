@@ -4,8 +4,8 @@ import { ISpecialityRepository } from "../speciality.repository";
 
 
 export class SpecialityPrismaRepository implements ISpecialityRepository {
-  async save(data: Speciality): Promise<Speciality> {
 
+  async save(data: Speciality): Promise<Speciality> {
     const speciality = await prismaClient.speciality.create({
       data: {
         name: data.name,
@@ -14,5 +14,20 @@ export class SpecialityPrismaRepository implements ISpecialityRepository {
       },
     })
     return speciality
+  }
+  async findByName(name: string): Promise<Speciality | null> {
+    return await prismaClient.speciality.findUnique({
+      where: {
+        name,
+      },
+    })
+  }
+
+  async findById(id: string): Promise<Speciality | null> {
+    return await prismaClient.speciality.findUnique({
+      where: {
+        id,
+      },
+    })
   }
 }

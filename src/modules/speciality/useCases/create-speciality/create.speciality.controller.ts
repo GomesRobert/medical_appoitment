@@ -1,6 +1,7 @@
 import { Request, response, Response } from "express";
 import { ISpecialityRepository } from "../../repositories/speciality.repository";
-import { CreateSpeciality } from "./create-speciality.useca";
+
+import { CreateSpeciality } from "./create-speciality.usecase";
 
 export class CreateSpecialityController {
   constructor(private specialityRepository: ISpecialityRepository) { }
