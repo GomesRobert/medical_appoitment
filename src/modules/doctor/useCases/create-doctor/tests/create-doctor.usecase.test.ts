@@ -21,7 +21,6 @@ beforeAll(async () => {
     name: "NAME_TEST"
   })
 
-
   await specialityRepository.save(speciality)
 })
 
@@ -38,6 +37,9 @@ describe("Create Doctor Use Case", () => {
       crm: "123456",
       specialityId: speciality.id
     }
+
+    console.log({ doctorMock })
+
     const createDoctorUseCase = new CreateDoctorUseCase(
       userRepository,
       doctorRepository,
@@ -51,7 +53,6 @@ describe("Create Doctor Use Case", () => {
   test("Should not be able to create a new Doctor with exists CRM", async () => {
     const userRepository = new UserMemoryRepository();
     const doctorRepository = new DoctorMemoryRepository()
-
 
     const doctorMock: CreateDoctorRequest = {
       username: "username_test",

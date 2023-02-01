@@ -1,4 +1,4 @@
-import { Doctor } from "../../entities/tests/doctor.entity";
+import { Doctor } from "../../entities/doctor.entity";
 import { IDoctorRepository } from "../doctor.repository";
 
 export class DoctorMemoryRepository implements IDoctorRepository {

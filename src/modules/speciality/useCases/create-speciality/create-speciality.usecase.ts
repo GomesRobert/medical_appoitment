@@ -7,7 +7,6 @@ type SpecialityRequest = {
   description: string
 }
 
-
 export class CreateSpeciality {
   constructor(private specialityRepository: ISpecialityRepository) { }
 

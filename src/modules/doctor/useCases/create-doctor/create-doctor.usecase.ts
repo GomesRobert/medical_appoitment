@@ -1,9 +1,9 @@
 import { CustomError } from "../../../../errors/custom.error"
 import { ISpecialityRepository } from "../../../speciality/repositories/speciality.repository"
-import { User } from "../../../users/entities/user.entity"
-import { IUserRespository } from "../../../users/repositories/user.repository"
-import { Doctor } from "../../entities/tests/doctor.entity"
 import { IDoctorRepository } from "../../repositories/doctor.repository"
+import { IUserRespository } from "../../../users/repositories/user.repository"
+import { User } from "../../../users/entities/user.entity"
+import { Doctor } from "../../entities/doctor.entity"
 
 export type CreateDoctorRequest = {
   username: string,
@@ -15,15 +15,13 @@ export type CreateDoctorRequest = {
 }
 
 export class CreateDoctorUseCase {
-
   constructor(
     private userRepository: IUserRespository,
     private doctorRepository: IDoctorRepository,
     private specialityRepository: ISpecialityRepository
   ) { }
-
   async execute(data: CreateDoctorRequest) {
-    const user = User.create({
+    const user = await User.create({
       name: data.name,
       password: data.password,
       username: data.username,
