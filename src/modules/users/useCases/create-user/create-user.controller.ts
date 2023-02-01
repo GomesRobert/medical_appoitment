@@ -7,7 +7,7 @@ import { CreateUseCase } from "./create-user.usecase"
 
 
 export class CreateUserController {
-  constructor(private userRepository: IUserRespository, private passwordCrypto: IPasswprdCrypto) { }
+  constructor(private userRepository: IUserRespository) { }
 
   async handle(request: Request, response: Response) {
     logger.info("Usuário sendo criado!")
@@ -15,14 +15,15 @@ export class CreateUserController {
       const data = request.body
 
       const useCase = new CreateUseCase(
-        this.userRepository, this.passwordCrypto
-      )
+        this.userRepository)
       const result = await useCase.execute(data)
 
       return response.json(result)
     } catch (err: any) {
       logger.error("err.stack")
-      return response.status(err.statusCode).json(err.message)
+      return response.status(err.statusCode).json({
+        error: err.message,
+      })
     }
   }
 }

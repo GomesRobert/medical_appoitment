@@ -1,44 +1,49 @@
-import { test, expect } from "vitest"
-import { UserMemoryRepository } from "../../../users/repositories/implementations/user.memory.repository"
-import { DoctorMemoryRepository } from "../../repositories/implementations/doctor-memory.repository"
-import { CreateDoctorRequest, CreateDoctorUseCase } from "../../useCases/create-doctor/create-doctor.usecase"
-import { Doctor } from "./doctor.entity"
-import { randomUUID } from "crypto"
-// Deve  set possível cadastrar um doctor
-test("should be able to create a new doctor", () => {
+import { test, expect, describe } from "vitest"
+import { Doctor } from "../doctor.entity"
 
-  const doctor = Doctor.create({
-    crm: "123456",
-    email: " email@email.com",
-    specialityId: "SPEC_ID",
-    userId: "USER_ID",
+describe("Doctor entity", () => {
+  test("should be able to create a new doctor", () => {
+    const doctor = Doctor.create({
+      crm: "123456",
+      email: " email@email.com",
+      specialityId: "SPEC_ID",
+      userId: "USER_ID",
+    })
+    console.log({ doctor })
+
+    expect(doctor).toBeInstanceOf(Doctor);
+    expect(doctor).toHaveProperty("id")
   })
 
-  console.log({ doctor })
+  test("Should not be able to create a new Doctor witch CRM invalid", () => {
+    expect(() => {
+      Doctor.create({
+        crm: "",
+        email: "email@email.com",
+        specialityId: "Spec_ID",
+        userId: "USER_ID",
+      })
+    }).toThrow("CMR is required!")
+  })
+  test("Should not be able to create a new Doctor witch CRM length invalid", () => {
+    expect(() => {
+      Doctor.create({
+        crm: "12345",
+        email: "email@email.com",
+        specialityId: "Spec_ID",
+        userId: "USER_ID",
+      })
+    }).toThrow("CMR length is incorrect")
+  })
 
-  expect(doctor).toBeInstanceOf(Doctor);
-  expect(doctor).toHaveProperty("id")
-})
-
-test("Should be able to create a new Doctor", async () => {
-
-  const doctorMock: CreateDoctorRequest = {
-    username: "username_test",
-    name: "name_test",
-    password: "password_test",
-    email: "email@email.com.br",
-    crm: "123456",
-    specialityId: randomUUID(),
-  }
-
-  const userRepository = new UserMemoryRepository();
-  const doctorRepository = new DoctorMemoryRepository()
-
-  const createDoctorUseCase = new CreateDoctorUseCase(
-    userRepository,
-    doctorRepository
-  )
-  const doctorCreated = await createDoctorUseCase.execute(doctorMock)
-
-  expect(doctorCreated).toHaveProperty("id")
+  test("Should not be able to create a new Doctor witch Email invalid", () => {
+    expect(() => {
+      Doctor.create({
+        crm: "123456",
+        email: "",
+        specialityId: "Spec_ID",
+        userId: "USER_ID",
+      })
+    }).toThrow("Email is required!")
+  })
 })
