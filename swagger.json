@@ -65,13 +65,14 @@
         "description": "Cadastro de um médico",
         "tags": ["doctors"],
         "requestBody":{
+          "content":{
           "application/json":{
             "schema":{
               "$ref":"#/components/schemas/DoctorRequest"
             }
           }
-        }
-       },
+       }
+    },
        "responses":{
         "200":{
           "description":" Médico criado com sucesso "
@@ -81,7 +82,8 @@
         }
       }
     }     
-  },
+  }
+},
   "components":{
     "schemas":{
       "SpecialityRequest":{
@@ -152,7 +154,7 @@
           "email":{
           "type": "string",
             "description":"Email do médico",
-            "example": "email@email,com.br"
+            "example": "email@email.com.br"
         },   
             "username": {
             "type": "string",
