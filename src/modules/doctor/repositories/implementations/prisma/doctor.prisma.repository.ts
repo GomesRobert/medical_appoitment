@@ -1,10 +1,16 @@
-import { PrismaClient } from "@prisma/client";
-import { prismaClient } from "../../../../infra/databases/prisma.config";
-import { Doctor } from "../../entities/doctor.entity";
-import { DoctorMapper } from "../../mapper/doctor.map";
-import { IDoctorRepository } from "../doctor.repository";
+
+import { prismaClient } from "../../../../../infra/databases/prisma.config";
+import { Doctor } from "../../../entities/doctor.entity";
+import { DoctorMapper } from "../../../mapper/doctor.map";
+import { IDoctorRepository } from "../../doctor.repository";
 
 export class DoctorPrismaRepository implements IDoctorRepository {
+  findById(id: string): Promise<Doctor | null> {
+    throw new Error("Method not implemented.");
+  }
+  findByUserID(userID: string): Promise<Doctor | null> {
+    throw new Error("Method not implemented.");
+  }
   async save(data: Doctor): Promise<Doctor> {
     const doctor = await prismaClient.doctor.create({
       data: {
@@ -12,17 +18,15 @@ export class DoctorPrismaRepository implements IDoctorRepository {
         email: data.crm,
         speciality_id: data.specialityId,
         user_id: data.userId
-      }
+      },
     })
     return DoctorMapper.prismaToEntityDoctor(doctor)
   }
-
-
   async findByCRM(crm: string): Promise<Doctor | null> {
     const doctor = await prismaClient.doctor.findUnique({
       where: {
-        crm
-      }
+        crm,
+      },
     })
     if (doctor) return DoctorMapper.prismaToEntityDoctor(doctor)
     return null;
