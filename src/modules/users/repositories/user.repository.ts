@@ -1,4 +1,4 @@
-import { User } from "../entities/user.entity"
+import { User } from '../entities/user.entity'
 
 export interface IUserRespository {
   findByUsername(username: string): Promise<User | undefined>
