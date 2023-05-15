@@ -1,5 +1,5 @@
-import { randomUUID } from "crypto"
-import { CustomError } from "../../../errors/custom.error"
+import { randomUUID } from 'crypto'
+import { CustomError } from '../../../errors/custom.error'
 
 export type DoctorProps = {
   crm: string
@@ -17,26 +17,26 @@ export class Doctor {
 
   private constructor(props: DoctorProps) {
     if (!props.crm) {
-      throw new CustomError("CMR is required!")
+      throw new CustomError('CRM is required!')
     }
 
     if (props.crm.length !== 6) {
-      throw new CustomError("CMR length is incorrect!")
+      throw new CustomError('CRM length is incorrect!')
     }
 
     if (!props.email) {
-      throw new CustomError("Email is required!")
+      throw new CustomError('Email is required!')
     }
 
-    this.id = randomUUID();
-    this.crm = props.crm;
-    this.email = props.email;
-    this.userId = props.userId;
+    this.id = randomUUID()
+    this.crm = props.crm
+    this.email = props.email
+    this.userId = props.userId
     this.specialityId = props.specialityId
   }
 
   static create(props: DoctorProps) {
     const doctor = new Doctor(props)
-    return doctor;
+    return doctor
   }
 }

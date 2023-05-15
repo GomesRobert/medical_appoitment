@@ -1,11 +1,11 @@
-import { PasswordBcrypt } from "../../../../infra/shared/crypto/password.bcrypt"
-import { JWTToken } from "../../../../infra/shared/token/jwt.token"
-import { UserPrismaRepository } from "../../repositories/implementations/user.prisma.repository"
-import { AuthenticateUserController } from "./authenticate-user.controller"
+import { AuthenticateUserController } from './authenticate-user.controller'
+import { PasswordBcrypt } from '../../../../infra/shared/crypto/password.bcrypt'
+import { UserPrismaRepository } from '../../repositories/implementations/user.prisma.repository'
+import { JWTToken } from '../../../../infra/shared/token/jwt.token'
 
 const userPrismaRepository = new UserPrismaRepository()
 const passwordBcrypt = new PasswordBcrypt()
-const token = new JWTToken
+const token = new JWTToken()
 
 const authenticateUserController = new AuthenticateUserController(
   userPrismaRepository,

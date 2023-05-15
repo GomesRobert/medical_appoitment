@@ -1,26 +1,23 @@
-
-import { Request, Response } from "express"
-import { logger } from "../../../../Utils/logger"
-import { IUserRespository } from "../../repositories/user.repository"
-import { IPasswprdCrypto } from "../../../../infra/shared/crypto/password.crypto"
-import { CreateUseCase } from "./create-user.usecase"
-
+import { Request, Response } from 'express'
+import { IPasswordCrypto } from '../../../../infra/shared/crypto/password.crypto'
+import { logger } from '../../../../utils/logger'
+import { IUserRespository } from '../../repositories/user.repository'
+import { CreateUserUseCase } from './create-user.usecase'
 
 export class CreateUserController {
   constructor(private userRepository: IUserRespository) { }
 
   async handle(request: Request, response: Response) {
-    logger.info("Usuário sendo criado!")
+    logger.info('Usuário sendo criado!')
     try {
       const data = request.body
 
-      const useCase = new CreateUseCase(
-        this.userRepository)
+      const useCase = new CreateUserUseCase(this.userRepository)
       const result = await useCase.execute(data)
 
       return response.json(result)
     } catch (err: any) {
-      logger.error("err.stack")
+      logger.error(err.stack)
       return response.status(err.statusCode).json({
         error: err.message,
       })

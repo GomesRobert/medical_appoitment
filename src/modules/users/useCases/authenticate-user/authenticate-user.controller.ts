@@ -1,15 +1,13 @@
-import { Request, Response } from "express";
-import { IPasswprdCrypto } from "../../../../infra/shared/crypto/password.crypto";
-import { IToken } from "../../../../infra/shared/token/token";
-import { IUserRespository } from "../../repositories/user.repository";
-import { AuthenticateUserUseCase } from "./authenticate-user.usecase";
-
+import { Request, Response } from 'express'
+import { IPasswordCrypto } from '../../../../infra/shared/crypto/password.crypto'
+import { IToken } from '../../../../infra/shared/token/token'
+import { IUserRespository } from '../../repositories/user.repository'
+import { AuthenticateUserUseCase } from './authenticate-user.usecase'
 
 export class AuthenticateUserController {
-
   constructor(
     private userRepository: IUserRespository,
-    private passwordCrypt: IPasswprdCrypto,
+    private passwordCrypt: IPasswordCrypto,
     private token: IToken
   ) { }
 
@@ -21,7 +19,7 @@ export class AuthenticateUserController {
         this.userRepository,
         this.passwordCrypt,
         this.token
-      );
+      )
 
       const result = await authenticateUserUseCase.execute(data)
 

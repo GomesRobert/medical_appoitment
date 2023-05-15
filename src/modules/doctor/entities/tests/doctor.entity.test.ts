@@ -1,49 +1,49 @@
-import { test, expect, describe } from "vitest"
-import { Doctor } from "../doctor.entity"
+import { test, expect, describe } from 'vitest'
+import { Doctor } from '../doctor.entity'
 
-describe("Doctor entity", () => {
-  test("should be able to create a new doctor", () => {
+describe('Doctor entity', () => {
+  test('Should be able to create a new doctor', () => {
     const doctor = Doctor.create({
-      crm: "123456",
-      email: " email@email.com",
-      specialityId: "SPEC_ID",
-      userId: "USER_ID",
+      crm: '123456',
+      email: 'email@email.com',
+      specialityId: 'SPEC_ID',
+      userId: 'USER_ID',
     })
-    console.log({ doctor })
 
-    expect(doctor).toBeInstanceOf(Doctor);
-    expect(doctor).toHaveProperty("id")
+    expect(doctor).toBeInstanceOf(Doctor)
+    expect(doctor).toHaveProperty('id')
   })
 
-  test("Should not be able to create a new Doctor witch CRM invalid", () => {
+  test('Should not be able to create a new doctor with CRM invalid', () => {
     expect(() => {
       Doctor.create({
-        crm: "",
-        email: "email@email.com",
-        specialityId: "Spec_ID",
-        userId: "USER_ID",
+        crm: '',
+        email: 'email@email.com',
+        specialityId: 'SPEC_ID',
+        userId: 'USER_ID',
       })
-    }).toThrow("CMR is required!")
-  })
-  test("Should not be able to create a new Doctor witch CRM length invalid", () => {
-    expect(() => {
-      Doctor.create({
-        crm: "12345",
-        email: "email@email.com",
-        specialityId: "Spec_ID",
-        userId: "USER_ID",
-      })
-    }).toThrow("CMR length is incorrect")
+    }).toThrow('CRM is required!')
   })
 
-  test("Should not be able to create a new Doctor witch Email invalid", () => {
+  test('Should not be able to create a new doctor with CRM length invalid', () => {
     expect(() => {
       Doctor.create({
-        crm: "123456",
-        email: "",
-        specialityId: "Spec_ID",
-        userId: "USER_ID",
+        crm: '12345',
+        email: 'email@email.com',
+        specialityId: 'SPEC_ID',
+        userId: 'USER_ID',
       })
-    }).toThrow("Email is required!")
+    }).toThrow('CRM length is incorrect!')
+  })
+
+  test('Should not be able to create a new doctor with Email invalid', () => {
+    expect(() => {
+      Doctor.create({
+        crm: '123456',
+        email: '',
+        specialityId: 'SPEC_ID',
+        userId: 'USER_ID',
+      })
+    }).toThrow('Email is required!')
   })
 })

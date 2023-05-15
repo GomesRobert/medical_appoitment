@@ -1,10 +1,8 @@
-import { Speciality } from "@prisma/client";
-import { prismaClient } from "../../../../infra/databases/prisma.config";
-import { ISpecialityRepository } from "../speciality.repository";
-
+import { prismaClient } from '../../../../infra/databases/prisma.config'
+import { Speciality } from '../../entities/speciality.entity'
+import { ISpecialityRepository } from '../speciality.repository'
 
 export class SpecialityPrismaRepository implements ISpecialityRepository {
-
   async save(data: Speciality): Promise<Speciality> {
     const speciality = await prismaClient.speciality.create({
       data: {
@@ -13,8 +11,10 @@ export class SpecialityPrismaRepository implements ISpecialityRepository {
         id: data.id,
       },
     })
+
     return speciality
   }
+
   async findByName(name: string): Promise<Speciality | null> {
     return await prismaClient.speciality.findUnique({
       where: {
