@@ -1,4 +1,4 @@
-import { prisma } from '@prisma/client'
+
 import { prismaClient } from '../../../../../infra/databases/prisma.config'
 import { DoctorWithUserDTO } from '../../../dto/doctor.dto'
 import { Doctor } from '../../../entities/doctor.entity'
