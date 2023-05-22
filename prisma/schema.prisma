@@ -8,45 +8,41 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(uuid())
-  name      String
-  username  String   @unique
-  password  String
-  isAdmin   Boolean  @default(false)
-  createdAt DateTime @default(now())
-  doctor    Doctor?
-  patient   Patient?
-  avatar    String?
+  id       String   @id @default(uuid())
+  name     String
+  username String   @unique
+  password String
+  isAdmin  Boolean  @default(false)
+  createAt DateTime @default(now())
+  avatar   String?
+  doctor   Doctor?
+  patient  Patient?
 
   @@map("users")
 }
 
 model Speciality {
-  id          String @id @default(uuid())
-  name        String @unique
+  id          String   @id @default(uuid())
+  name        String   @unique
   description String
-
-  createdAt DateTime @default(now())
-  doctor    Doctor[]
+  createdAt   DateTime @default(now())
+  doctor      Doctor[]
 
   @@map("specialities")
 }
 
 model Doctor {
-  id    String @id @default(uuid())
-  email String @unique
-  crm   String @unique
-
-  user    User   @relation(fields: [user_id], references: [id])
-  user_id String @unique
-
-  speciality    Speciality @relation(fields: [speciality_id], references: [id])
-  speciality_id String
-
+  id              String            @id @default(uuid())
+  email           String            @unique
+  crm             String            @unique
+  user_id         String            @unique
+  speciality_id   String
   createdAt       DateTime          @default(now())
+  appointment     Appointment[]
   doctorInfo      DoctorInfo?
   doctorSchedules DoctorSchedules[]
-  appointment     Appointment[]
+  speciality      Speciality        @relation(fields: [speciality_id], references: [id])
+  user            User              @relation(fields: [user_id], references: [id])
 
   @@map("doctors")
 }
@@ -65,9 +61,9 @@ model Patient {
   id          String        @id @default(uuid())
   document    String        @unique
   email       String        @unique
-  user        User          @relation(fields: [user_id], references: [id])
   user_id     String        @unique
   appointment Appointment[]
+  user        User          @relation(fields: [user_id], references: [id])
 
   @@map("patients")
 }
@@ -86,12 +82,12 @@ model DoctorSchedules {
 model Appointment {
   id          String   @id @default(uuid())
   doctor_id   String
-  doctor      Doctor   @relation(fields: [doctor_id], references: [id])
   patient_id  String
-  patient     Patient  @relation(fields: [patient_id], references: [id])
   is_finished Boolean  @default(false)
   date        DateTime
   note        String?
+  doctor      Doctor   @relation(fields: [doctor_id], references: [id])
+  patient     Patient  @relation(fields: [patient_id], references: [id])
 
   @@map("appointments")
 }
